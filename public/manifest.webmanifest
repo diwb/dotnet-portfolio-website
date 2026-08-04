@@ -1,0 +1,15 @@
+{
+  "name": "DIWB Engineering OS",
+  "short_name": "DIWB OS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#39d0a4",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

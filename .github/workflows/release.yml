@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run validate:data
+      - run: npm run audit:claims
+      - run: npm run check:links
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
+      - run: npm run verify:out
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run lighthouse
+      - run: npm audit --audit-level=high
+      - run: npm run report
+      - run: zip -r portfolio-static.zip out
+      - run: |
+          cat > RELEASE_NOTES.md <<'NOTES'
+          # v1.0.0
+
+          Static-first DIWB Engineering OS portfolio release.
+
+          Assets include the static export, portfolio data report, Lighthouse HTML/JSON reports and checksums.
+          NOTES
+      - run: sha256sum portfolio-static.zip portfolio-report.json lighthouse-report.html lighthouse-report.json RELEASE_NOTES.md > SHA256SUMS
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          files: |
+            portfolio-static.zip
+            portfolio-report.json
+            lighthouse-report.html
+            lighthouse-report.json
+            RELEASE_NOTES.md
+            SHA256SUMS

@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run validate:data
+      - run: npm run audit:claims
+      - run: npm run check:links
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run format
+      - run: npm run test
+      - run: npm run build
+      - run: npm run verify:out
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run lighthouse
+      - run: npm audit --audit-level=high
+      - run: npm run report
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-out
+          path: out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-report
+          path: portfolio-report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: |
+            lighthouse-report.html
+            lighthouse-report.json
