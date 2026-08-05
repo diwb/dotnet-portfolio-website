@@ -49,6 +49,7 @@
     "eslint-config-next": "^15.1.4",
     "jsdom": "^25.0.1",
     "lighthouse": "^13.4.1",
+    "picomatch": "^4.0.5",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "serve": "^14.2.6",
