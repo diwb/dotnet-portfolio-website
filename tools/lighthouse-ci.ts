@@ -68,7 +68,7 @@ async function run() {
       "--output-path=./lighthouse-report",
       "--quiet",
       "--preset=desktop",
-      "--chrome-flags=--headless=new --no-sandbox --disable-gpu"
+      "--chrome-flags=--headless --no-sandbox --disable-gpu --disable-dev-shm-usage"
     ],
     {
       shell: true,
