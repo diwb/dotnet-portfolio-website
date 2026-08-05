@@ -10,7 +10,7 @@ export const siteConfig = {
   gitSshRepository: "git@github.com:diwb/dotnet-portfolio-website.git",
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "https://www.linkedin.com/in/diwb",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@example.com",
-  resumePath: "/resume.pdf"
+  resumePath: process.env.NEXT_PUBLIC_RESUME_URL ?? "https://www.linkedin.com/in/diwb"
 };
 
 export const profile = {

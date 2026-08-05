@@ -9,8 +9,11 @@ const thresholds = {
   seo: 95
 };
 
+const repoName = "dotnet-portfolio-website";
+const isGithubPages = process.env.GITHUB_PAGES === "true";
 const publicUrl = process.env.LIGHTHOUSE_URL;
-const localUrl = "http://127.0.0.1:4173";
+const localOrigin = "http://127.0.0.1:4173";
+const localUrl = isGithubPages ? `${localOrigin}/${repoName}/` : localOrigin;
 const auditUrl = publicUrl ?? localUrl;
 let server: ChildProcess | undefined;
 const npxCommand = process.platform === "win32" ? "npx.cmd" : "npx";
@@ -32,9 +35,18 @@ async function startStaticServer() {
   if (!existsSync("out/index.html")) {
     throw new Error("Missing out/index.html. Run npm run build before Lighthouse.");
   }
-  server = spawn(npxCommand, ["serve", "out", "-l", "4173"], {
+
+  const args = isGithubPages
+    ? ["tsx", "tools/serve-github-pages.ts"]
+    : ["serve", "out", "-l", "4173"];
+
+  server = spawn(npxCommand, args, {
     shell: process.platform === "win32",
-    stdio: "ignore"
+    stdio: "ignore",
+    env: {
+      ...process.env,
+      PORT: "4173"
+    }
   });
   await waitForServer(localUrl);
 }

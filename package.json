@@ -1,6 +1,6 @@
 {
   "name": "dotnet-portfolio-website",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "DIWB Engineering OS - static-first interactive engineering portfolio.",
   "scripts": {
@@ -20,6 +20,7 @@
     "report": "tsx tools/portfoliotool.ts generate-report",
     "export:summary": "tsx tools/portfoliotool.ts export-summary",
     "verify:out": "tsx tools/verify-out.ts",
+    "verify:github-pages": "tsx tools/verify-github-pages.ts",
     "lighthouse": "tsx tools/lighthouse-ci.ts"
   },
   "dependencies": {

@@ -4,6 +4,7 @@ coverage
 node_modules
 playwright-report
 test-results
+.tmp
 portfolio-report.json
 portfolio-summary.md
 portfolio-static.zip
@@ -15,3 +16,4 @@ SHA256SUMS
 tsconfig.tsbuildinfo
 lighthouse-report*.html
 lighthouse-report*.json
+

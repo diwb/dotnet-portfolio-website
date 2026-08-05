@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Download, ExternalLink } from "lucide-react";
 import { siteConfig, profile } from "@/data/profile";
 import { getEvidenceStats, getProjects } from "@/lib/portfolio";
+import { withBasePath } from "@/lib/paths";
 import EvidenceDashboard from "@/components/EvidenceDashboard";
 import ProjectsTimeline from "@/components/ProjectsTimeline";
 import ArchitectureMap from "@/components/ArchitectureMap";
@@ -31,7 +32,7 @@ export default function HomePage() {
               </Link>
               <a
                 className="inline-flex items-center gap-2 rounded border border-line px-5 py-3 font-semibold text-ink hover:bg-white/8"
-                href={siteConfig.resumePath}
+                href={withBasePath(siteConfig.resumePath)}
               >
                 Resume <Download size={18} />
               </a>

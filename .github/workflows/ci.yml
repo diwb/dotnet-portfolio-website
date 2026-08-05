@@ -11,6 +11,8 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAGES: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,6 +30,7 @@ jobs:
       - run: npm run test
       - run: npm run build
       - run: npm run verify:out
+      - run: npm run verify:github-pages
       - run: npx playwright install --with-deps chromium
       - uses: browser-actions/setup-chrome@v1
         id: setup-chrome

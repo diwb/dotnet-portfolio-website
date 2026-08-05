@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Github, Linkedin, Mail } from "lucide-react";
 import "./globals.css";
 import { siteConfig } from "@/data/profile";
+import { withBasePath } from "@/lib/paths";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -26,9 +27,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.url
   },
-  manifest: "/manifest.webmanifest",
+  manifest: withBasePath("/manifest.webmanifest"),
   icons: {
-    icon: "/favicon.svg"
+    icon: withBasePath("/favicon.svg")
   }
 };
 
