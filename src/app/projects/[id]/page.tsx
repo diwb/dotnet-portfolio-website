@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ExternalLink } from "lucide-react";
+import { LocalizedText } from "@/components/LanguageProvider";
 import { getProjectById, getProjects, formatScore } from "@/lib/portfolio";
 
 export function generateStaticParams() {
@@ -15,7 +16,7 @@ export async function generateMetadata({
   const { id } = await params;
   const project = getProjectById(id);
   return {
-    title: project?.title ?? "Project",
+    title: project?.title ?? "Projeto",
     description: project?.subtitle
   };
 }
@@ -29,7 +30,10 @@ export default async function ProjectCasePage({ params }: { params: Promise<{ id
     <article className="px-4 py-14">
       <div className="mx-auto max-w-5xl">
         <p className="text-sm font-semibold uppercase tracking-widest text-accent">
-          Case study {project.order}
+          <LocalizedText
+            pt={`Estudo de caso ${project.order}`}
+            en={`Case study ${project.order}`}
+          />
         </p>
         <h1 className="mt-3 text-5xl font-semibold">{project.title}</h1>
         <p className="mt-5 text-xl leading-8 text-muted">{project.subtitle}</p>
@@ -40,7 +44,7 @@ export default async function ProjectCasePage({ params }: { params: Promise<{ id
             rel="noopener noreferrer"
             target="_blank"
           >
-            Repository <ExternalLink size={18} />
+            <LocalizedText pt="Repositório" en="Repository" /> <ExternalLink size={18} />
           </a>
           {project.releaseUrl && (
             <a
@@ -54,10 +58,11 @@ export default async function ProjectCasePage({ params }: { params: Promise<{ id
           )}
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-3">
-          <Info title="Score" items={[formatScore(project)]} />
-          <Info title="Stack" items={project.stack} />
+          <Info titlePt="Pontuação" titleEn="Score" items={[formatScore(project)]} />
+          <Info titlePt="Stack" titleEn="Stack" items={project.stack} />
           <Info
-            title="Evidence"
+            titlePt="Evidências"
+            titleEn="Evidence"
             items={[
               `CI: ${yes(project.evidence.ci)}`,
               `CodeQL: ${yes(project.evidence.codeql)}`,
@@ -67,19 +72,37 @@ export default async function ProjectCasePage({ params }: { params: Promise<{ id
           />
         </div>
         <CaseSection
-          title="Problem"
+          titlePt="Problema"
+          titleEn="Problem"
           items={[
+            `O trabalho técnico muitas vezes desaparece dentro de repositórios. ${project.title} é apresentado aqui como evidência que pode ser revisada rapidamente e depois inspecionada em profundidade.`
+          ]}
+          itemsEn={[
             `Technical work often disappears into repositories. ${project.title} is presented here as evidence that can be reviewed quickly and then inspected deeply.`
           ]}
         />
-        <CaseSection title="Solution" items={project.highlights} />
-        <CaseSection title="Architecture" items={project.architecture} />
-        <CaseSection title="Business Value" items={project.businessValue} />
-        <CaseSection title="Technical Value" items={project.technicalValue} />
-        <CaseSection title="Limitations" items={project.limitations} />
+        <CaseSection titlePt="Solução" titleEn="Solution" items={project.highlights} />
+        <CaseSection titlePt="Arquitetura" titleEn="Architecture" items={project.architecture} />
         <CaseSection
-          title="Learnings"
+          titlePt="Valor de negócio"
+          titleEn="Business Value"
+          items={project.businessValue}
+        />
+        <CaseSection
+          titlePt="Valor técnico"
+          titleEn="Technical Value"
+          items={project.technicalValue}
+        />
+        <CaseSection titlePt="Limitações" titleEn="Limitations" items={project.limitations} />
+        <CaseSection
+          titlePt="Aprendizados"
+          titleEn="Learnings"
           items={[
+            "Tornar evidências visíveis.",
+            "Manter afirmações conservadoras.",
+            "Preferir verificação repetível em vez de confiança manual."
+          ]}
+          itemsEn={[
             "Make evidence visible.",
             "Keep claims conservative.",
             "Prefer repeatable verification over manual confidence."
@@ -94,10 +117,12 @@ function yes(value: boolean) {
   return value ? "yes" : "not documented";
 }
 
-function Info({ title, items }: { title: string; items: string[] }) {
+function Info({ titlePt, titleEn, items }: { titlePt: string; titleEn: string; items: string[] }) {
   return (
     <section className="glass rounded-lg p-5">
-      <h2 className="text-lg font-semibold">{title}</h2>
+      <h2 className="text-lg font-semibold">
+        <LocalizedText pt={titlePt} en={titleEn} />
+      </h2>
       <ul className="mt-3 space-y-2 text-sm text-muted">
         {items.map((item) => (
           <li key={item}>{item}</li>
@@ -107,14 +132,26 @@ function Info({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-function CaseSection({ title, items }: { title: string; items: string[] }) {
+function CaseSection({
+  titlePt,
+  titleEn,
+  items,
+  itemsEn = items
+}: {
+  titlePt: string;
+  titleEn: string;
+  items: string[];
+  itemsEn?: string[];
+}) {
   return (
     <section className="mt-10">
-      <h2 className="text-2xl font-semibold">{title}</h2>
+      <h2 className="text-2xl font-semibold">
+        <LocalizedText pt={titlePt} en={titleEn} />
+      </h2>
       <ul className="mt-4 grid gap-3">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <li key={item} className="rounded border border-line bg-white/5 p-4 text-muted">
-            {item}
+            <LocalizedText pt={item} en={itemsEn[index] ?? item} />
           </li>
         ))}
       </ul>

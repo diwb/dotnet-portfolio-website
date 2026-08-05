@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import ProjectsTimeline from "@/components/ProjectsTimeline";
 import ProjectGalaxyPanel from "@/components/ProjectGalaxyPanel";
 import { getProjects } from "@/lib/portfolio";
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "Timeline of ten DIWB engineering portfolio projects."
+  title: "Projetos",
+  description: "Timeline de dez projetos de engenharia do portfólio DIWB."
 };
 
 export default function ProjectsPage() {

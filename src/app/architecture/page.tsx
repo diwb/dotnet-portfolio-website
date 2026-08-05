@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import ArchitectureMap from "@/components/ArchitectureMap";
 
 export const metadata: Metadata = {
-  title: "Architecture",
-  description: "Architecture map grouping portfolio projects by technical area."
+  title: "Arquitetura",
+  description: "Mapa de arquitetura agrupando projetos do portfólio por área técnica."
 };
 
 export default function ArchitecturePage() {

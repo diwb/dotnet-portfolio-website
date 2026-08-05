@@ -1,6 +1,7 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { CheckCircle2, ExternalLink } from "lucide-react";
+import { LocalizedText } from "@/components/LanguageProvider";
 import type { Project } from "@/data/projects";
 import { formatScore } from "@/lib/portfolio";
 
@@ -10,13 +11,20 @@ export default function ProjectsTimeline({ projects }: { projects: Project[] }) 
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-accent">
-            Projects timeline
+            <LocalizedText pt="Timeline de projetos" en="Projects timeline" />
           </p>
-          <h2 className="mt-2 text-3xl font-semibold">Ten projects, one evidence system</h2>
+          <h2 className="mt-2 text-3xl font-semibold">
+            <LocalizedText
+              pt="Dez projetos, um sistema de evidências"
+              en="Ten projects, one evidence system"
+            />
+          </h2>
         </div>
         <p className="max-w-2xl text-muted">
-          Each case keeps claims tied to repository evidence, CI posture, releases and documented
-          limitations.
+          <LocalizedText
+            pt="Cada caso mantém afirmações conectadas a evidências de repositório, postura de CI, releases e limitações documentadas."
+            en="Each case keeps claims tied to repository evidence, CI posture, releases and documented limitations."
+          />
         </p>
       </div>
       <ol className="grid gap-4">
@@ -60,7 +68,7 @@ export default function ProjectsTimeline({ projects }: { projects: Project[] }) 
                   className="inline-flex items-center gap-2 text-sm text-accent"
                   href={`/projects/${project.id}`}
                 >
-                  Case <ExternalLink size={15} />
+                  <LocalizedText pt="Caso" en="Case" /> <ExternalLink size={15} />
                 </Link>
               </div>
             </div>

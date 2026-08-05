@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
+import { LocalizedText } from "@/components/LanguageProvider";
 import { getStackMatrix } from "@/lib/portfolio";
 
 export const metadata: Metadata = {
-  title: "Skills",
-  description: "Skills matrix across .NET, Angular, Next.js, DevOps, AI, SAP, MCP and automation."
+  title: "Competências",
+  description: "Matriz de competências em .NET, Angular, Next.js, DevOps, IA, SAP, MCP e automação."
 };
 
 const requiredSkills = [
@@ -29,8 +30,15 @@ export default function SkillsPage() {
   return (
     <div className="px-4 py-14">
       <div className="mx-auto max-w-7xl">
-        <p className="text-sm font-semibold uppercase tracking-widest text-accent">Skills matrix</p>
-        <h1 className="mt-2 text-4xl font-semibold">Capabilities mapped to projects</h1>
+        <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+          <LocalizedText pt="Matriz de competências" en="Skills matrix" />
+        </p>
+        <h1 className="mt-2 text-4xl font-semibold">
+          <LocalizedText
+            pt="Capacidades mapeadas a projetos"
+            en="Capabilities mapped to projects"
+          />
+        </h1>
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {requiredSkills.map((skill) => {
             const match = matrix.find(
@@ -40,9 +48,20 @@ export default function SkillsPage() {
               <article key={skill} className="glass rounded-lg p-5">
                 <h2 className="text-xl font-semibold">{skill}</h2>
                 <p className="mt-2 text-muted">
-                  {match
-                    ? `${match.projects} related project signals`
-                    : "Documented through related project context"}
+                  {match ? (
+                    <>
+                      {match.projects}{" "}
+                      <LocalizedText
+                        pt="sinais de projetos relacionados"
+                        en="related project signals"
+                      />
+                    </>
+                  ) : (
+                    <LocalizedText
+                      pt="Documentado pelo contexto dos projetos relacionados"
+                      en="Documented through related project context"
+                    />
+                  )}
                 </p>
               </article>
             );

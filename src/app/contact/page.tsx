@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import { Github, Linkedin, Mail, Copy } from "lucide-react";
+import { LocalizedText } from "@/components/LanguageProvider";
 import { siteConfig } from "@/data/profile";
 
 export default function ContactPage() {
@@ -11,11 +12,17 @@ export default function ContactPage() {
   return (
     <div className="px-4 py-14">
       <div className="mx-auto max-w-4xl">
-        <p className="text-sm font-semibold uppercase tracking-widest text-accent">Contact</p>
-        <h1 className="mt-2 text-4xl font-semibold">Static contact points</h1>
+        <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+          <LocalizedText pt="Contato" en="Contact" />
+        </p>
+        <h1 className="mt-2 text-4xl font-semibold">
+          <LocalizedText pt="Pontos de contato estáticos" en="Static contact points" />
+        </h1>
         <p className="mt-5 text-lg leading-8 text-muted">
-          No backend form is required. A provider such as Formspree, Basin or Netlify Forms can be
-          added later without changing the static export model.
+          <LocalizedText
+            pt="Nenhum formulário com backend é necessário. Um provedor como Formspree, Basin ou Netlify Forms pode ser adicionado depois sem mudar o modelo de exportação estática."
+            en="No backend form is required. A provider such as Formspree, Basin or Netlify Forms can be added later without changing the static export model."
+          />
         </p>
         <div className="mt-8 grid gap-4">
           <a
@@ -45,7 +52,7 @@ export default function ContactPage() {
             onClick={copyEmail}
             type="button"
           >
-            <Copy /> Copy email
+            <Copy /> <LocalizedText pt="Copiar email" en="Copy email" />
           </button>
         </div>
       </div>

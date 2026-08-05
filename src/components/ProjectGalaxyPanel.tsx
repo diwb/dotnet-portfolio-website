@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { LocalizedText } from "@/components/LanguageProvider";
 import type { Project } from "@/data/projects";
 
 const ProjectGalaxy = dynamic(() => import("./ProjectGalaxy"), {
@@ -31,9 +32,14 @@ function Fallback() {
       className="rounded-lg border border-line bg-white/5 p-6"
       data-testid="project-galaxy-fallback"
     >
-      <h2 className="text-2xl font-semibold">2D engineering map fallback</h2>
+      <h2 className="text-2xl font-semibold">
+        <LocalizedText pt="Mapa 2D de engenharia" en="2D engineering map fallback" />
+      </h2>
       <p className="mt-2 text-muted">
-        The 3D layer is optional and disabled when reduced motion is preferred.
+        <LocalizedText
+          pt="A camada 3D é opcional e fica desativada quando o usuário prefere reduzir movimento."
+          en="The 3D layer is optional and disabled when reduced motion is preferred."
+        />
       </p>
     </div>
   );
