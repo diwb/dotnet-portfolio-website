@@ -13,6 +13,7 @@ const publicUrl = process.env.LIGHTHOUSE_URL;
 const localUrl = "http://127.0.0.1:4173";
 const auditUrl = publicUrl ?? localUrl;
 let server: ChildProcess | undefined;
+const npxCommand = process.platform === "win32" ? "npx.cmd" : "npx";
 
 async function waitForServer(url: string) {
   const deadline = Date.now() + 30_000;
@@ -31,8 +32,8 @@ async function startStaticServer() {
   if (!existsSync("out/index.html")) {
     throw new Error("Missing out/index.html. Run npm run build before Lighthouse.");
   }
-  server = spawn("npx", ["serve", "out", "-l", "4173"], {
-    shell: true,
+  server = spawn(npxCommand, ["serve", "out", "-l", "4173"], {
+    shell: process.platform === "win32",
     stdio: "ignore"
   });
   await waitForServer(localUrl);
@@ -59,7 +60,7 @@ async function run() {
   }
 
   const result = spawnSync(
-    "npx",
+    npxCommand,
     [
       "lighthouse",
       auditUrl,
@@ -71,7 +72,7 @@ async function run() {
       "--chrome-flags=--headless --no-sandbox --disable-gpu --disable-dev-shm-usage"
     ],
     {
-      shell: true,
+      shell: process.platform === "win32",
       stdio: "inherit",
       env: {
         ...process.env,
