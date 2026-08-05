@@ -6,6 +6,9 @@ playwright-report
 test-results
 portfolio-report.json
 portfolio-summary.md
+portfolio-static.zip
+RELEASE_NOTES.md
+SHA256SUMS
 *.log
 .env
 .env.local
