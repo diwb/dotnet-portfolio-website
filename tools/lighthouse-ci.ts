@@ -75,7 +75,7 @@ async function run() {
       stdio: "inherit",
       env: {
         ...process.env,
-        CHROME_PATH: chromium.executablePath()
+        CHROME_PATH: process.env.CHROME_PATH ?? chromium.executablePath()
       }
     }
   );

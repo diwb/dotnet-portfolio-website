@@ -26,8 +26,12 @@ jobs:
       - run: npm run build
       - run: npm run verify:out
       - run: npx playwright install --with-deps chromium
+      - uses: browser-actions/setup-chrome@v1
+        id: setup-chrome
       - run: npm run test:e2e
       - run: npm run lighthouse
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
       - run: npm audit --audit-level=high
       - run: npm run report
       - run: zip -r portfolio-static.zip out
